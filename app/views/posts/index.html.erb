@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+ <head>
+ <meta charset="utf-8">
+ <title>スケジュール管理サイト</title>
+ <link rel="stylesheet" href="application.css">
+ </head>
+
+ <body>
+  <%# ヘッダー %>
+  <header>スケジュール管理アプリ</header>
+
+  <%# メイン %>
+  <main>
+    <%= flash[:notice] %>
+
+    <table border="1">
+        <tr>
+          <th>id</th>
+          <th>タイトル</th>
+          <th>開始日</th>
+          <th>終了日</th>
+          <th>終日</th>
+          <th>更新日時</th>
+          <th>詳細ページへのリンク</th>
+          <th>編集ページへのリンク</th>
+          <th>削除リンク</th>
+        </tr>
+        <% @users.each do |t|%>
+        <tr>
+          <td><%= t.id %></td>
+          <td><%= t.title %></td>
+          <td><%= t.start_at.strftime('%Y/%m/%d') %></td>
+          <td><%= t.end_at.strftime('%Y/%m/%d') %></td>
+          <td>
+          <% if t.all_day %>
+            <%="〇"%>
+          <% else %>
+            <%="×"%>
+          <% end %>
+          </td>
+          <td><%= t.updated_at.strftime('%Y/%m/%d') %></td>
+          <td><%= link_to "詳細", post_path(t.id) %></td>
+          <td><%= link_to "編集", edit_post_path(t.id) %></td>
+          <td><%= button_to "削除", post_path(t.id), method: :delete %></td>
+        </tr>
+        <% end %>
+    </table>
+
+    <%= link_to "新規投稿作成", new_post_path %>
+  </main>
+
+  <%# フッター %>
+  <footer>Copyright © 2022 Refdoragon inc. All Rights Reserved.</footer>
+
+ </body>
+</html>

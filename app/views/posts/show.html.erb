@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+ <head>
+ <meta charset="utf-8">
+ <title>スケジュール管理サイト</title>
+ <link rel="stylesheet" href="application.css">
+ </head>
+
+ <body>
+<%# ヘッダー %>
+  <header>スケジュール管理アプリ</header>
+  <table border="1">
+      <tr>
+        <th>id</th>
+        <th>タイトル</th>
+        <th>開始日</th>
+        <th>終了日</th>
+        <th>終日</th>
+        <th>更新日時</th>
+        <th>メモ</th>
+      </tr>
+      <tr>
+        <td><%= @user.id %></td>
+        <td><%= @user.title %></td>
+        <td><%= @user.start_at.strftime('%Y/%m/%d') %></td>
+        <td><%= @user.end_at.strftime('%Y/%m/%d') %></td>
+        <td>
+        <% if @user.all_day %>
+          <%="〇"%>
+        <% else %>
+          <%="×"%>
+        <% end %>
+        </td>
+        <td><%= @user.updated_at.strftime('%Y/%m/%d') %></td>
+        <td><%= @user.memo %></td>
+      </tr>
+    </table>
+
+  <%= link_to "戻る", posts_path %>
+
+<%# フッター %>
+  <footer>Copyright © 2022 Refdoragon inc. All Rights Reserved.</footer>
+
+ </body>
+</html>
